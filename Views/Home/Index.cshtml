@@ -1,0 +1,264 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+    body { background: #f0f4f8; }
+    .dashboard-wrapper { padding: 20px; }
+    .welcome-text h2 { color: #0f3460; font-weight: 700; font-size: 1.8rem; }
+    .welcome-text p { color: #555; }
+
+    .stat-card {
+        border-radius: 16px;
+        padding: 22px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-card .icon { font-size: 2rem; margin-bottom: 8px; }
+    .stat-card h2 { font-size: 2.2rem; font-weight: 800; margin: 0; }
+    .stat-card p { margin: 0; font-size: 0.85rem; opacity: 0.9; }
+
+    .card-total    { background: linear-gradient(135deg, #1a4a7a, #00b4d8); }
+    .card-todo     { background: linear-gradient(135deg, #c0392b, #e94560); }
+    .card-progress { background: linear-gradient(135deg, #0f3460, #00b4d8); }
+    .card-done     { background: linear-gradient(135deg, #06d6a0, #0f9b6e); }
+    .card-sprints  { background: linear-gradient(135deg, #7b2ff7, #4a1a9e); }
+    .card-active   { background: linear-gradient(135deg, #0f3460, #1a4a7a); }
+
+    .main-card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        padding: 24px;
+        color: #0f3460;
+    }
+    .main-card h5 { color: #0f3460; font-weight: 700; }
+
+    .action-btn {
+        border-radius: 12px;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border: none;
+        margin-bottom: 12px;
+        width: 100%;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        transition: opacity 0.2s, transform 0.2s;
+        color: white;
+    }
+    .action-btn:hover { opacity: 0.85; transform: translateX(4px); color: white; }
+    .btn-add    { background: linear-gradient(135deg, #0f3460, #00b4d8); }
+    .btn-sprint { background: linear-gradient(135deg, #7b2ff7, #0f3460); }
+    .btn-view   { background: linear-gradient(135deg, #06d6a0, #0f9b6e); }
+
+    .progress { background: #e9ecef; height: 10px; border-radius: 10px; }
+    .progress-bar { background: linear-gradient(90deg, #00b4d8, #06d6a0); border-radius: 10px; }
+
+    .section-label {
+        color: #00b4d8;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+    }
+
+    .flow-box {
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .flow-arrow {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="dashboard-wrapper">
+
+    <!-- Header -->
+    <div class="welcome-text mb-4">
+        <h2>🚀 Project Dashboard</h2>
+        <p>Welcome back, Manoj! Here's your SprintBoard overview.</p>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-2">
+            <div class="stat-card card-total text-center">
+                <div class="icon">📌</div>
+                <h2>@ViewBag.TotalTasks</h2>
+                <p>Total Tasks</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card card-todo text-center">
+                <div class="icon">🗂️</div>
+                <h2>@ViewBag.TodoTasks</h2>
+                <p>To Do</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card card-progress text-center">
+                <div class="icon">⚙️</div>
+                <h2>@ViewBag.InProgressTasks</h2>
+                <p>In Progress</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card card-done text-center">
+                <div class="icon">✅</div>
+                <h2>@ViewBag.DoneTasks</h2>
+                <p>Completed</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card card-sprints text-center">
+                <div class="icon">🏁</div>
+                <h2>@ViewBag.TotalSprints</h2>
+                <p>Sprints</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card card-active text-center">
+                <div class="icon">🔥</div>
+                <h2>@ViewBag.ActiveSprints</h2>
+                <p>Active</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart + Flow + Actions -->
+    <div class="row g-3">
+
+        <!-- Doughnut Chart -->
+        <div class="col-md-5">
+            <div class="main-card">
+                <div class="section-label">📊 Task Flow</div>
+                <canvas id="taskChart" height="220"></canvas>
+                <div class="d-flex justify-content-center gap-4 mt-3">
+                    <span style="color:#e94560; font-weight:600;">● To Do</span>
+                    <span style="color:#00b4d8; font-weight:600;">● In Progress</span>
+                    <span style="color:#06d6a0; font-weight:600;">● Done</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sprint Flow -->
+        <div class="col-md-4">
+            <div class="main-card">
+                <div class="section-label">🔄 Sprint Flow</div>
+
+                <div class="flow-box" style="background:#e8f4fd; border:2px solid #00b4d8;">
+                    <span style="color:#0f3460; font-weight:700;">📋 Backlog</span><br>
+                    <small style="color:#555;">All planned tasks</small>
+                </div>
+
+                <div class="flow-arrow" style="color:#00b4d8;">↓</div>
+
+                <div class="flow-box" style="background:#f0e8fd; border:2px solid #7b2ff7;">
+                    <span style="color:#7b2ff7; font-weight:700;">🏃 Sprint Planning</span><br>
+                    <small style="color:#555;">Assign to sprint</small>
+                </div>
+
+                <div class="flow-arrow" style="color:#7b2ff7;">↓</div>
+
+                <div class="flow-box" style="background:#e8f4fd; border:2px solid #0f3460;">
+                    <span style="color:#0f3460; font-weight:700;">⚙️ In Progress</span><br>
+                    <small style="color:#555;">Active development</small>
+                </div>
+
+                <div class="flow-arrow" style="color:#06d6a0;">↓</div>
+
+                <div class="flow-box" style="background:#e8fdf5; border:2px solid #06d6a0;">
+                    <span style="color:#0f9b6e; font-weight:700;">✅ Done</span><br>
+                    <small style="color:#555;">Completed tasks</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions + Progress -->
+        <div class="col-md-3">
+            <div class="main-card mb-3">
+                <div class="section-label">⚡ Quick Actions</div>
+                <a asp-controller="Task" asp-action="Create" class="action-btn btn-add">
+                    ➕ Add New Task
+                </a>
+                <a asp-controller="Sprint" asp-action="Create" class="action-btn btn-sprint">
+                    🏁 New Sprint
+                </a>
+                <a asp-controller="Task" asp-action="Index" class="action-btn btn-view">
+                    📋 View Tasks
+                </a>
+            </div>
+
+            <div class="main-card">
+                <div class="section-label">📈 Progress</div>
+                @{
+                    var total = (int)(ViewBag.TotalTasks ?? 0);
+                    var done = (int)(ViewBag.DoneTasks ?? 0);
+                    var percent = total > 0 ? (done * 100 / total) : 0;
+                }
+                <p style="color:#555; font-size:0.85rem;" class="mb-1">Tasks Completed</p>
+                <div class="progress mb-2">
+                    <div class="progress-bar" style="width:@percent%"></div>
+                </div>
+                <p style="color:#00b4d8; font-weight:700; text-align:right;">@done/@total (@percent%)</p>
+
+                <p style="color:#555; font-size:0.85rem;" class="mb-1 mt-2">Sprint Progress</p>
+                <div class="progress mb-2">
+                    <div class="progress-bar"
+                         style="width:@(ViewBag.ActiveSprints > 0 ? 60 : 0)%;
+                                background: linear-gradient(90deg,#7b2ff7,#00b4d8);">
+                    </div>
+                </div>
+                <p style="color:#7b2ff7; font-weight:700; text-align:right;">
+                    @ViewBag.ActiveSprints Active Sprint
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('taskChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['To Do', 'In Progress', 'Done'],
+            datasets: [{
+                data: [@ViewBag.TodoTasks, @ViewBag.InProgressTasks, @ViewBag.DoneTasks],
+                backgroundColor: ['#e94560', '#00b4d8', '#06d6a0'],
+                borderColor: '#ffffff',
+                borderWidth: 4,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '70%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#0f3460',
+                    titleColor: '#00b4d8',
+                    bodyColor: 'white',
+                    borderColor: '#00b4d8',
+                    borderWidth: 1
+                }
+            }
+        }
+    });
+</script>
