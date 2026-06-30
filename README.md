@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="wwwroot/images/dashboard.png" alt="SprintBoard Dashboard" width="800">
-</p>
-
-<h1 align="center">🚀 SprintBoard</h1>
+<h1 align="center"> SprintBoard</h1>
 <p align="center">
   <b>Agile Project Management System built with ASP.NET Core MVC</b>
 </p>
@@ -16,7 +12,7 @@
 
 ---
 
-# 🚀 Why This Project Matters
+#  Why This Project Matters
 
 Managing software projects without structure leads to delays, confusion, and poor delivery tracking.
 
@@ -30,25 +26,25 @@ It demonstrates real-world **software engineering + full-stack .NET development 
 
 ---
 
-# ⚙️ System Workflow
+#  System Workflow
 
 `User Login` ➔ `Create Sprint` ➔ `Add Tasks` ➔ `Track Progress` ➔ `View Dashboard Analytics`
 
 ---
 
-# ✨ Key Features
+#  Key Features
 
-- 🔐 Authentication (ASP.NET Identity)
-- 📅 Sprint Management (CRUD)
-- 📝 Task Management System
-- 📊 Dashboard Analytics with Charts
-- 📈 Progress Tracking
-- 🎨 Clean, Colorful UI Design
-- ⚡ Entity Framework Core Integration
+-  Authentication (ASP.NET Identity)
+-  Sprint Management (CRUD)
+-  Task Management System
+-  Dashboard Analytics with Charts
+-  Progress Tracking
+-  Clean, Colorful UI Design
+-  Entity Framework Core Integration
 
 ---
 
-# 🖼️ Screenshots
+#  Screenshots
 
 ## 📊 Dashboard
 <p align="center">
@@ -67,7 +63,7 @@ It demonstrates real-world **software engineering + full-stack .NET development 
 
 ---
 
-# 🛠️ Tech Stack
+#  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -78,7 +74,7 @@ It demonstrates real-world **software engineering + full-stack .NET development 
 
 ---
 
-# ⚙️ How to Run Locally
+#  How to Run Locally
 
 ```bash
 git clone https://github.com/YOURUSERNAME/SprintBoard.git
@@ -90,6 +86,6 @@ Open `http://localhost:5098`
 
 ---
 
-# 👨‍💻 Author
+#  Author
 
-**Manoj Pillai**
+**Manoj Pillai A**
