@@ -3,7 +3,6 @@
 </p>
 
 <h1 align="center">🚀 SprintBoard</h1>
-
 <p align="center">
   <b>Agile Project Management System built with ASP.NET Core MVC</b>
 </p>
@@ -44,7 +43,7 @@ It demonstrates real-world **software engineering + full-stack .NET development 
 - 📝 Task Management System
 - 📊 Dashboard Analytics with Charts
 - 📈 Progress Tracking
-- 🎨 Clean Dark UI Design
+- 🎨 Clean, Colorful UI Design
 - ⚡ Entity Framework Core Integration
 
 ---
@@ -68,4 +67,29 @@ It demonstrates real-world **software engineering + full-stack .NET development 
 
 ---
 
-# 🧠 Architecture
+# 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | ASP.NET Core MVC, C# |
+| Database | SQL Server Express, Entity Framework Core |
+| Frontend | Bootstrap, Chart.js |
+| Auth | ASP.NET Identity |
+
+---
+
+# ⚙️ How to Run Locally
+
+```bash
+git clone https://github.com/YOURUSERNAME/SprintBoard.git
+cd SprintBoard
+dotnet ef database update
+dotnet run
+```
+Open `http://localhost:5098`
+
+---
+
+# 👨‍💻 Author
+
+**Manoj Pillai**
