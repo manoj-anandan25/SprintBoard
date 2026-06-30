@@ -58,7 +58,7 @@ It demonstrates real-world **software engineering + full-stack .NET development 
 
 ## 📝 Task Management
 <p align="center">
-  <img src="wwwroot/images/tasks.png" width="800">
+  <img src="wwwroot/images/task.png" width="800">
 </p>
 
 ## 📅 Sprint Management
